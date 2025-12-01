@@ -1,4 +1,4 @@
-Hosted website: cchinothai.com
+# Website: [Cloud Resume](cchinothai.com)
 
 # Cloud Resume Challenge - Troubleshooting Documentation
 
