@@ -1,3 +1,5 @@
+Hosted website: cchinothai.com
+
 # Cloud Resume Challenge - Troubleshooting Documentation
 
 ## Project: Static Resume with Custom Domain & HTTPS
