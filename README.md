@@ -1,4 +1,4 @@
-# Website: [Cloud Resume](cchinothai.com)
+# Website: [Cloud Resume](https://cchinothai.com)
 
 # Cloud Resume Challenge - Troubleshooting Documentation
 
