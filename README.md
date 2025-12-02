@@ -8,6 +8,8 @@
 **Date:** November 30, 2024  
 **Stack:** S3, CloudFront, ACM, Route 53/Cloudflare DNS
 
+PROJECT BOARD: https://www.notion.so/Cloud-Resume-Challenge-2bb62cf00b76806483cddae5b333f710
+
 ---
 
 ## Issue #1: ERR_SSL_VERSION_OR_CIPHER_MISMATCH
@@ -28,6 +30,8 @@ CloudFront distribution was missing the **Alternate Domain Name (CNAME)** config
 - Custom SSL certificate was attached to CloudFront
 
 CloudFront didn't know it should respond to requests for `cchinothai.com`.
+
+read further documentation: https://docs.aws.amazon.com/acm/latest/userguide/dns-validation.html
 
 ### Solution
 1. Navigate to CloudFront distribution in AWS Console
