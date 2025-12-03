@@ -13,7 +13,7 @@ variable "domain_name" {
 variable "bucket_name" {
   description = "S3 bucket name for static website"
   type        = string
-  default     = "s3-resume-cchinothai"
+  default     = "s3-cloud-resume-cchinothai"
 }
 
 variable "project_name" {

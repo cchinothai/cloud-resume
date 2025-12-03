@@ -12,7 +12,7 @@ data "aws_acm_certificate" "existing_cert" {
 
 # S3 Bucket
 resource "aws_s3_bucket" "resume_bucket" {
-  bucket = "s3-resume-cchinothai"
+  bucket = var.bucket_name
 
   tags = {
     Name    = var.bucket_name
@@ -55,22 +55,19 @@ resource "aws_cloudfront_distribution" "resume" {
   }
 
   # Default Cache Behavior
+  # Default Cache Behavior (using managed cache policy)
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD", "OPTIONS"]
     cached_methods         = ["GET", "HEAD"]
     target_origin_id       = "S3-${var.bucket_name}"
     viewer_protocol_policy = "redirect-to-https"
+    compress               = true
 
-    forwarded_values {
-      query_string = false
-      cookies {
-        forward = "none"
-      }
-    }
+    # Use AWS managed cache policy (recommended for static sites)
+    cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6" # CachingOptimized
 
-    min_ttl     = 0
-    default_ttl = 3600
-    max_ttl     = 86400
+    # Use AWS managed origin request policy
+    origin_request_policy_id = "88a5eaf4-2fd4-4709-b370-b4c650ea3fcf" # CORS-S3Origin
   }
 
   # Viewer Certificate (HTTPS)
