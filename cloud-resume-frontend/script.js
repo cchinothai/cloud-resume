@@ -17,5 +17,5 @@ async function updateVisitorCount() {
 
 }
 
-//Call function when page loads
+//Get the visitor count when page loads
 window.addEventListener('DOMContentLoaded', updateVisitorCount);
