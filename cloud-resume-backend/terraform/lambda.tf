@@ -1,36 +1,6 @@
-# ========================================
-# DynamoDB Table for Visitor Counter
-# ========================================
-
-resource "aws_dynamodb_table" "visitor_counter" {
-  name         = var.table_name
-  billing_mode = "PAY_PER_REQUEST"  # On-demand pricing (no capacity planning needed)
-  hash_key     = "visitor_count"    # Partition key
-
-  attribute {
-    name = "visitor_count"
-    type = "S"  # String type
-  }
-
-  # Optional: Enable point-in-time recovery for backups
-  point_in_time_recovery {
-    enabled = true
-  }
-
-  # Optional: Enable server-side encryption
-  server_side_encryption {
-    enabled = true
-  }
-
-  tags = {
-    Name        = var.table_name
-    Project     = var.project_name
-    Environment = "production"
-  }
-}
 
 # ========================================
-# IAM Role for Lambda
+# IAM Role for Lambda + Other Permissions
 # ========================================
 
 # Trust policy - allows Lambda service to assume this role
@@ -85,6 +55,14 @@ resource "aws_iam_role_policy" "lambda_dynamodb_policy" {
   })
 }
 
+# Allow api gateway to invoke lambda
+resource "aws_lambda_permission" "allow_api" {
+  statement_id  = "allowInvokeFromAPIGatewayAuthorizor"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.visitor_counter.arn
+  principal     = "apigateway.amazonaws.com"
+}
+
 # Zip the Lambda code
 data "archive_file" "lambda_zip" {
   type        = "zip"
@@ -99,12 +77,12 @@ data "archive_file" "lambda_zip" {
 resource "aws_lambda_function" "visitor_counter" {
   filename         = data.archive_file.lambda_zip.output_path
   function_name    = var.lambda_function_name
-  role            = aws_iam_role.lambda_execution_role.arn
-  handler         = "handler.lambda_handler"
+  role             = aws_iam_role.lambda_execution_role.arn
+  handler          = "handler.lambda_handler"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
-  runtime         = var.lambda_runtime
-  timeout         = var.lambda_timeout
-  memory_size     = var.lambda_memory
+  runtime          = var.lambda_runtime
+  timeout          = var.lambda_timeout
+  memory_size      = var.lambda_memory
 
   environment {
     variables = {

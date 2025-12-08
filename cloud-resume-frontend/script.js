@@ -3,7 +3,7 @@ async function updateVisitorCount() {
 
     try {
         // Replace with you actual API endpoint
-        const API_ENDPOINT = 'https://your-api-gateway-url.com/prod/count';
+        const API_ENDPOINT = 'https://fubpixvfia.execute-api.us-east-1.amazonaws.com/prod/count';
 
         const response = await fetch(API_ENDPOINT);
         const data = response.json();
