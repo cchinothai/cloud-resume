@@ -6,10 +6,11 @@ async function updateVisitorCount() {
         const API_ENDPOINT = 'https://fubpixvfia.execute-api.us-east-1.amazonaws.com/prod/count';
 
         const response = await fetch(API_ENDPOINT);
-        const data = response.json();
+        const data = await response.json();
 
-    //update countElement
-    countElement.textContent = data.count
+        //update countElement
+        console.log('data.count : ', data.count)
+        countElement.textContent = data.count
     } catch (error) {
         console.error('Error fetching visitor count:', error);
         countElement.textContent = 'Error loading count';

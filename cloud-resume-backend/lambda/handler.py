@@ -18,19 +18,28 @@ def lambda_handler(event, context):
     table_name = os.environ.get('TABLE_NAME')
     
     dynamodb = boto3.client('dynamodb')
-    table = dynamodb.Table(table_name)
     
     try:
         # TODO: Update item with atomic increment
-        response = table.update_item(
-            Key={'visitor_count': 'main"'},
-            UpdateExpression='ADD count :inc',
-            ExpressionAttributeValues={':inc': Decimal(1)},
+        response = dynamodb.update_item(
+            TableName=table_name,
+            Key={
+                'visitor_count': {'S' : 'main'}
+            },
+            UpdateExpression='ADD #count :inc',
+            ExpressionAttributeNames={
+                '#count': 'count'
+            },
+            ExpressionAttributeValues={
+                ':inc': {'N' : '1'}
+            },
             ReturnValues='ALL_NEW'
         )
         
         # TODO: Extract count from response
-        count = response['Attributes']['count']
+        count = int(response['Attributes']['count']['N'])
+
+        print('count: ', count)
         
         # TODO: Return success response
         return {
