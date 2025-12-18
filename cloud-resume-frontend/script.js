@@ -1,3 +1,8 @@
+/*
+    - Retrieve response endpoint from API Gateway (after backend has updated)
+    - Update visibility count shown in frontend
+    - Call update function on every page load 
+*/
 async function updateVisitorCount() {
     const countElement = document.getElementById('visitor-count')
 
