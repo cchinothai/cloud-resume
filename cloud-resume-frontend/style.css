@@ -332,16 +332,24 @@ h2 {
 }
 
 .skill-row {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     font-size: 0.95em;
     color: #475569;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
 }
 
 .skill-label {
     font-weight: 700;
     color: #6366f1;
-    display: inline-block;
-    min-width: 180px;
+    min-width: 220px;
+    flex-shrink: 0;
+}
+
+.skill-content {
+    flex: 1;
+    line-height: 1.6;
 }
 
 .experience-item, .project-item {
