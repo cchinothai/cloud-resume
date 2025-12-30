@@ -6,6 +6,13 @@ terraform {
     }
   }
 
+  cloud {
+    organization = "team-cody"
+    workspaces {
+      name = "cloud-resume-backend"
+    }
+  }
+
   required_version = ">= 1.14.0"
 }
 

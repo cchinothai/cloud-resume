@@ -15,6 +15,7 @@ import os
 # API 
 
 def lambda_handler(event, context):
+    #test github action trigger on push ... 
     table_name = os.environ.get('TABLE_NAME')
     
     dynamodb = boto3.client('dynamodb')
