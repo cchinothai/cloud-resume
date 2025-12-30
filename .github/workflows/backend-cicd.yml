@@ -16,7 +16,7 @@ permissions:
 env:
   TF_CLOUD_ORGANIZATION: "team-cody"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "learn-terraform-github-actions" 
+  TF_WORKSPACE: "cloud-resume-backend" 
   CONFIG_DIRECTORY: "./cloud-resume-backend/terraform"
 
 jobs:
@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd cloud-resume-backend
-          pip install -r lambda/requirements.txt
+          pip install -r terraform/lambda/requirements.txt
       
       - name: Run pytest
         run: |
