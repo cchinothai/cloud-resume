@@ -12,7 +12,7 @@ edge considerations
 import boto3
 import json
 import os 
-os.environ['AWS_DEFAULT_REGION'] = 'us-east-1' # add default region to run pytest in github actions
+os.environ['AWS_DEFAULT_REGION'] = 'us-east-1' # set default region to run pytest in github actions
 
 # API 
 
