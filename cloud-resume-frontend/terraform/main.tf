@@ -127,6 +127,14 @@ resource "aws_s3_object" "index_html" {
   content_type = "text/html"
 }
 
+resource "aws_s3_object" "about_html" {
+  bucket       = aws_s3_bucket.resume_bucket.id
+  key          = "about.html"
+  source       = "../about.html"
+  etag         = filemd5("../about.html")
+  content_type = "text/html"
+}
+
 resource "aws_s3_object" "style_css" {
   bucket       = aws_s3_bucket.resume_bucket.id
   key          = "style.css"

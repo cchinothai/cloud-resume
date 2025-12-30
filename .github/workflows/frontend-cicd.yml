@@ -1,0 +1,68 @@
+name: 'Frontend CI/CD'
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'cloud-resume-frontend/**'
+      - '!cloud-resume-frontend/terraform/**'
+  pull_request:
+    paths:
+      - 'cloud-resume-frontend/**'
+      - '!cloud-resume-frontend/terraform/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-frontend:
+    name: 'Deploy Static Files'
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false  # Important for output parsing
+      
+      - name: Get Infrastructure Info
+        id: tf-outputs
+        working-directory: ./cloud-resume-frontend/terraform
+        run: |
+          terraform init
+          BUCKET_NAME=$(terraform output -raw s3_bucket_name)
+          DIST_ID=$(terraform output -raw cloudfront_distribution_id)
+          echo "bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
+          echo "distribution_id=$DIST_ID" >> $GITHUB_OUTPUT
+      
+      - name: Sync files to S3
+        run: |
+          aws s3 sync ./cloud-resume-frontend/ s3://${{ steps.tf-outputs.outputs.bucket_name }}/ \
+            --exclude "terraform/*" \
+            --exclude ".git/*" \
+            --exclude "*.md" \
+            --delete
+      
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ steps.tf-outputs.outputs.distribution_id }} \
+            --paths "/*"
+      
+      - name: Deployment Summary
+        run: |
+          echo "✅ Files synced to S3: ${{ steps.tf-outputs.outputs.bucket_name }}"
+          echo "✅ CloudFront invalidated: ${{ steps.tf-outputs.outputs.distribution_id }}"
+          echo "🌐 Site: https://cchinothai.com"
