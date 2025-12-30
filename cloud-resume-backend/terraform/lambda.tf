@@ -63,11 +63,21 @@ resource "aws_lambda_permission" "allow_api" {
   principal     = "apigateway.amazonaws.com"
 }
 
+output "debug_paths" {
+  value = {
+    root   = path.root
+    module = path.module
+    cwd    = path.cwd
+  }
+}
+
+
 # Zip the Lambda code
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_file = "${path.module}/../lambda/handler.py"
-  output_path = "${path.module}/lambda_function.zip"
+  source_file = "${path.root}/lambda/handler.py"
+  output_path = "lambda_function.zip"
+  
 }
 
 # ========================================
