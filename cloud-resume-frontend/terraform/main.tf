@@ -123,7 +123,7 @@ resource "aws_s3_object" "index_html" {
   bucket       = aws_s3_bucket.resume_bucket.id
   key          = "index.html"
   source       = "../index.html"
-  source_hash  = filemd5("../index.html")
+  source_hash  = filemd5("index.html")
   content_type = "text/html"
 }
 
@@ -131,7 +131,7 @@ resource "aws_s3_object" "about_html" {
   bucket       = aws_s3_bucket.resume_bucket.id
   key          = "about.html"
   source       = "../about.html"
-  etag         = filemd5("../about.html")
+  etag         = filemd5("about.html")
   content_type = "text/html"
 }
 
@@ -139,7 +139,7 @@ resource "aws_s3_object" "style_css" {
   bucket       = aws_s3_bucket.resume_bucket.id
   key          = "style.css"
   source       = "../style.css"
-  source_hash  = filemd5("../style.css")
+  source_hash  = filemd5("style.css")
   content_type = "text/css"
 }
 
@@ -147,6 +147,6 @@ resource "aws_s3_object" "script_js" {
   bucket       = aws_s3_bucket.resume_bucket.id
   key          = "script.js"
   source       = "../script.js"
-  source_hash  = filemd5("../script.js")
+  source_hash  = filemd5("script.js")
   content_type = "application/javascript"
 }
