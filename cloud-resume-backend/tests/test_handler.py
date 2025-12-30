@@ -5,8 +5,9 @@ from moto import mock_aws
 import os
 import sys
 
+
 # Add lambda directory to path so we can import handler.
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../lambda')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../terraform/lambda')))
 from handler import lambda_handler
 
 def create_test_table(dynamodb_client, table_name='test_table'):
