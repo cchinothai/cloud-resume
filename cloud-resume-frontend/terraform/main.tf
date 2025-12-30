@@ -91,7 +91,7 @@ resource "aws_cloudfront_distribution" "resume" {
 
 }
 
-# Bucket Policy - Allow cloudfront to get objects from s3 bucket 
+# Bucket Policy - Allow cloudfront to get objects from s3 bucket.
 resource "aws_s3_bucket_policy" "resume_bucket_policy" {
   bucket = aws_s3_bucket.resume_bucket.id
 
@@ -122,7 +122,7 @@ resource "aws_s3_bucket_policy" "resume_bucket_policy" {
 resource "aws_s3_object" "index_html" {
   bucket       = aws_s3_bucket.resume_bucket.id
   key          = "index.html"
-  source       = "../index.html"
+  source       = "static/index.html"
   source_hash  = filemd5("index.html")
   content_type = "text/html"
 }
@@ -130,7 +130,7 @@ resource "aws_s3_object" "index_html" {
 resource "aws_s3_object" "about_html" {
   bucket       = aws_s3_bucket.resume_bucket.id
   key          = "about.html"
-  source       = "../about.html"
+  source       = "static/about.html"
   etag         = filemd5("about.html")
   content_type = "text/html"
 }
@@ -138,7 +138,7 @@ resource "aws_s3_object" "about_html" {
 resource "aws_s3_object" "style_css" {
   bucket       = aws_s3_bucket.resume_bucket.id
   key          = "style.css"
-  source       = "../style.css"
+  source       = "static/style.css"
   source_hash  = filemd5("style.css")
   content_type = "text/css"
 }
