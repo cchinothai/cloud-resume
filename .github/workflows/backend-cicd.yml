@@ -17,7 +17,7 @@ env:
   TF_CLOUD_ORGANIZATION: "team-cody"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   TF_WORKSPACE: "learn-terraform-github-actions" 
-  CONFIG_DIRECTORY: "./" 
+  CONFIG_DIRECTORY: "./cloud-resume-backend/terraform"
 
 jobs:
   test_backend:
