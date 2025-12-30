@@ -15,8 +15,8 @@ permissions:
 
 env:
   TF_CLOUD_ORGANIZATION: "team-cody"
-  TF_WORKSPACE: "cloud-resume-backend"  # Change this!
-  CONFIG_DIRECTORY: "./cloud-resume-backend/terraform"  # Fix this!
+  TF_WORKSPACE: "learn-terraform-github-actions" 
+  CONFIG_DIRECTORY: "./" 
 
 jobs:
   test_backend:
