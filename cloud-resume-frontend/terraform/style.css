@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-/*test cache invalidation*/
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     line-height: 1.6;
@@ -336,6 +336,10 @@ body {
         width: 150px;
         height: 150px;
     }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Main Container */
@@ -473,27 +477,55 @@ h2 {
     padding: 20px;
     border-radius: 8px;
     border: 1px solid rgba(99, 102, 241, 0.15);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
 }
 
-.skill-row {
-    margin-bottom: 15px;
-    font-size: 0.95em;
-    color: #475569;
+.skill-category {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
     gap: 10px;
 }
 
 .skill-label {
     font-weight: 700;
+    font-size: 1em;
     color: #6366f1;
-    min-width: 220px;
-    flex-shrink: 0;
+    margin: 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(99, 102, 241, 0.3);
 }
 
-.skill-content {
-    flex: 1;
-    line-height: 1.6;
+.skill-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-list li {
+    background: rgba(99, 102, 241, 0.1);
+    color: #475569;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    font-weight: 500;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    transition: all 0.3s ease;
+    margin: 0;
+}
+
+.skill-list li:hover {
+    background: rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+}
+
+.skill-list li::marker {
+    content: none;
 }
 
 .experience-item, .project-item {
