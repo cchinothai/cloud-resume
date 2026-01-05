@@ -150,3 +150,11 @@ resource "aws_s3_object" "script_js" {
   source_hash  = filemd5("script.js")
   content_type = "application/javascript"
 }
+
+resource "aws_s3_object" "projects_html" {
+  bucket       = aws_s3_bucket.resume_bucket.id
+  key          = "projects.html"
+  source       = "projects.html"
+  etag         = filemd5("projects.html")
+  content_type = "text/html"
+}
