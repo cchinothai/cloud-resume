@@ -17,11 +17,8 @@
 
 ## Architecture Overview
 
-```
-Browser → CloudFront → S3 (Static Files)
-             ↓
-        API Gateway → Lambda → DynamoDB
-```
+<img width="1324" height="1346" alt="cloud-resume-diagram" src="https://github.com/user-attachments/assets/a89da87f-6444-45ab-95d5-28b4bb676379" />
+
 
 **Tech Stack:**
 - **Frontend:** HTML, CSS, JavaScript hosted on S3
