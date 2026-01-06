@@ -158,3 +158,11 @@ resource "aws_s3_object" "projects_html" {
   etag         = filemd5("projects.html")
   content_type = "text/html"
 }
+
+resource "aws_s3_object" "architecture_diagram" {
+  bucket       = aws_s3_bucket.resume_bucket.id
+  key          = "cloud-resume-diagram.png"
+  source       = "cloud-resume-diagram.png"
+  etag         = filemd5("cloud-resume-diagram.png")
+  content_type = "image/png"
+}
