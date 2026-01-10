@@ -166,3 +166,14 @@ resource "aws_s3_object" "architecture_diagram" {
   etag         = filemd5("cloud-resume-diagram.png")
   content_type = "image/png"
 }
+
+resource "aws_s3_object" "resume_pdf" {
+  bucket       = aws_s3_bucket.resume_bucket.id
+  key          = "Cody_Chinothai_Resume_2026D.pdf"
+  source       = "Cody_Chinothai_Resume_2026D.pdf"
+  etag         = filemd5("Cody_Chinothai_Resume_2026D.pdf")
+  content_type = "application/pdf"
+  
+  # Make this specific file publicly readable
+  acl = "public-read"
+}
