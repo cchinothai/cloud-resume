@@ -124,9 +124,33 @@ jobs:
           run: ${{ steps.apply-run.outputs.run_id }}
         env:
           TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Get CloudFront Distribution ID
+        id: get-distribution-id
+        run: |
+          DISTRIBUTION_ID=$(aws cloudfront list-distributions \
+            --query "DistributionList.Items[?Aliases.Items[?contains(@, 'cchinothai.com')]].Id | [0]" \
+            --output text)
+          echo "distribution_id=$DISTRIBUTION_ID" >> $GITHUB_OUTPUT
+          echo "Found CloudFront Distribution ID: $DISTRIBUTION_ID"
+
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ steps.get-distribution-id.outputs.distribution_id }} \
+            --paths "/*"
+          echo "✅ CloudFront cache invalidation initiated"
       
       - name: Deployment Summary
         run: |
           echo "✅ Frontend deployed via Terraform Cloud"
           echo "🌐 Workspace: ${{ env.TF_WORKSPACE }}"
           echo "🔗 Site: https://cchinothai.com"
+          echo "🔄 CloudFront cache invalidated"
