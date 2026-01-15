@@ -183,5 +183,5 @@ resource "aws_s3_object" "headshot" {
   key          = "headshot-prof.jpg"
   source       = "headshot-prof.jpg"
   etag         = filemd5("headshot-prof.jpg")
-  content_type = "image/png"
+  content_type = "image/jpg"
 }
