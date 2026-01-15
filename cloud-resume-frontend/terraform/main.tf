@@ -177,3 +177,11 @@ resource "aws_s3_object" "resume_pdf" {
   # Make this specific file publicly readable
   acl = "public-read"
 }
+
+resource "aws_s3_object" "headshot" {
+  bucket       = aws_s3_bucket.resume_bucket.id
+  key          = "headshot-prof.jpg"
+  source       = "headshot-prof.jpg"
+  etag         = filemd5("headshot-prof.jpg")
+  content_type = "image/png"
+}
