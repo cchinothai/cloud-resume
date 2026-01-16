@@ -1157,3 +1157,162 @@ li strong {
         display: none;
     }
 }
+
+/* ========================================
+   WAVE BACKGROUND ANIMATION
+   ======================================== */
+
+/* Wave Container - Fixed behind all content */
+.wave-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none; /* Allows clicks to pass through */
+}
+
+/* Base Wave Styles - Light Mode (More Visible Blue) */
+.wave {
+    position: absolute;
+    width: 200%;
+    height: 400px;
+    background: linear-gradient(135deg, 
+        rgba(103, 183, 220, 0.35) 0%, 
+        rgba(137, 207, 240, 0.35) 100%);
+    border-radius: 45% 55% 50% 50%;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Dark Mode Wave Colors (Slightly Dimmer) */
+body.dark-mode .wave {
+    background: linear-gradient(135deg, 
+        rgba(103, 183, 220, 0.25) 0%, 
+        rgba(137, 207, 240, 0.25) 100%);
+}
+
+/* Wave 1 - Bottom Layer (Slowest) */
+.wave-1 {
+    bottom: -100px;
+    left: -50%;
+    opacity: 0.6;
+    animation: wave-drift-1 25s ease-in-out infinite alternate;
+}
+
+/* Wave 2 - Middle Layer (Medium Speed) */
+.wave-2 {
+    bottom: -150px;
+    left: -25%;
+    opacity: 0.5;
+    height: 350px;
+    animation: wave-drift-2 18s ease-in-out infinite alternate-reverse;
+    animation-delay: -5s;
+}
+
+/* Wave 3 - Top Layer (Fastest) */
+.wave-3 {
+    bottom: -200px;
+    left: 0%;
+    opacity: 0.45;
+    height: 300px;
+    animation: wave-drift-3 12s ease-in-out infinite alternate;
+    animation-delay: -3s;
+}
+
+/* Keyframe Animations */
+@keyframes wave-drift-1 {
+    0% {
+        transform: translate3d(-25%, 0, 0) rotate(0deg);
+    }
+    50% {
+        transform: translate3d(0%, -15px, 0) rotate(1deg);
+    }
+    100% {
+        transform: translate3d(25%, 0, 0) rotate(0deg);
+    }
+}
+
+@keyframes wave-drift-2 {
+    0% {
+        transform: translate3d(0%, 0, 0) rotate(0deg);
+    }
+    50% {
+        transform: translate3d(-15%, -20px, 0) rotate(-1deg);
+    }
+    100% {
+        transform: translate3d(-30%, 0, 0) rotate(0deg);
+    }
+}
+
+@keyframes wave-drift-3 {
+    0% {
+        transform: translate3d(25%, 0, 0) rotate(0deg);
+    }
+    50% {
+        transform: translate3d(10%, -25px, 0) rotate(1.5deg);
+    }
+    100% {
+        transform: translate3d(-10%, 0, 0) rotate(0deg);
+    }
+}
+
+/* Accessibility - Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .wave {
+        animation: none;
+    }
+}
+
+/* Responsive Adjustments for Tablets and Mobile */
+@media (max-width: 1024px) {
+    .wave {
+        height: 300px;
+    }
+    
+    .wave-2 {
+        height: 250px;
+    }
+    
+    .wave-3 {
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .wave {
+        height: 250px;
+        width: 300%; /* Extend further on mobile for smoother appearance */
+    }
+    
+    .wave-2 {
+        height: 200px;
+        opacity: 0.25; /* Reduce opacity on mobile */
+    }
+    
+    .wave-3 {
+        display: none; /* Hide third wave on small screens for performance */
+    }
+    
+    /* Speed up animations slightly on mobile */
+    .wave-1 {
+        animation-duration: 20s;
+    }
+    
+    .wave-2 {
+        animation-duration: 15s;
+    }
+}
+
+/* Extra Small Devices (Phones in Portrait) */
+@media (max-width: 480px) {
+    .wave {
+        height: 200px;
+    }
+    
+    .wave-2 {
+        height: 150px;
+    }
+}

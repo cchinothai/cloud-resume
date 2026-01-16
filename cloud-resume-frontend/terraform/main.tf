@@ -174,8 +174,8 @@ resource "aws_s3_object" "resume_pdf" {
   etag         = filemd5("Cody_Chinothai_Resume_2026D.pdf")
   content_type = "application/pdf"
   
-  # Make this specific file publicly readable
-  acl = "public-read"
+  # # Make this specific file publicly readable
+  # acl = "public-read"
 }
 
 resource "aws_s3_object" "headshot" {
