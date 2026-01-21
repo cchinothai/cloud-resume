@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How I Use AI to Accelerate Cloud Development - Cody Chinothai</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">Cody Chinothai</div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="../about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="../index.html" class="nav-link">Resume</a></li>
+                <li class="nav-item"><a href="../projects.html" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="../blog.html" class="nav-link active">Blog</a></li>
+                <li class="nav-item"><a href="https://linkedin.com/in/cody-chinothai" class="nav-link">Contact</a></li>
+                <li class="nav-item">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container post-container">
+        <!-- Back to Blog Link -->
+        <a href="../blog.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+
+        <!-- Post Header -->
+        <header class="post-header">
+            <span class="card-topic">AI</span>
+            <h1 class="post-title">How I Use AI to Accelerate Cloud Development</h1>
+            <div class="post-meta">
+                <span class="post-author"><i class="fas fa-user"></i> Cody Chinothai</span>
+                <span class="post-date"><i class="fas fa-calendar"></i> January 5, 2026</span>
+                <span class="post-read-time"><i class="fas fa-clock"></i> 4 min read</span>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article class="post-content">
+            <p class="post-intro">
+                AI assistants have become an integral part of my development workflow. Here are practical ways I leverage AI to write better infrastructure code, debug faster, and learn new technologies more efficiently.
+            </p>
+
+            <h2>Writing Terraform Configurations</h2>
+            <p>
+                When creating new infrastructure resources, I often start by describing what I need in plain English. AI helps generate the initial Terraform blocks with proper syntax and common best practices:
+            </p>
+            <ul>
+                <li>Generating resource blocks with correct argument names</li>
+                <li>Suggesting appropriate IAM policies with least-privilege principles</li>
+                <li>Identifying missing dependencies between resources</li>
+                <li>Recommending variable structures for reusability</li>
+            </ul>
+
+            <h2>Debugging Lambda Functions</h2>
+            <p>
+                When my Lambda functions throw cryptic errors, AI excels at interpreting stack traces and suggesting fixes. A recent example: I was getting a DynamoDB validation error that turned out to be a missing type descriptor in my boto3 client code.
+            </p>
+
+            <div class="code-block">
+                <pre><code># The error message was confusing, but AI identified the issue:
+# Wrong: Key={'visitor_count': 'main'}
+# Right: Key={'visitor_count': {'S': 'main'}}</code></pre>
+            </div>
+
+            <h2>Learning New Services</h2>
+            <p>
+                Instead of reading through pages of documentation, I ask targeted questions about specific use cases. This accelerates learning while still building deep understanding:
+            </p>
+            <ul>
+                <li>"What's the difference between API Gateway REST and HTTP APIs?"</li>
+                <li>"When should I use DynamoDB on-demand vs provisioned capacity?"</li>
+                <li>"How does CloudFront Origin Access Control differ from Origin Access Identity?"</li>
+            </ul>
+
+            <h2>Code Review Partner</h2>
+            <p>
+                Before committing code, I often ask AI to review for potential issues. It catches things like:
+            </p>
+            <ul>
+                <li>Security misconfigurations (overly permissive IAM policies)</li>
+                <li>Missing error handling in Lambda functions</li>
+                <li>Inefficient resource configurations that could increase costs</li>
+                <li>Missing tags for resource organization</li>
+            </ul>
+
+            <h2>Writing Tests</h2>
+            <p>
+                AI is particularly helpful for generating test cases. Given a Lambda function, it can suggest edge cases I might not have considered and help structure pytest fixtures with moto for AWS mocking.
+            </p>
+
+            <h2>The Key: Stay Critical</h2>
+            <p>
+                While AI accelerates development, I always verify suggestions against official documentation. AI can occasionally hallucinate incorrect configurations or outdated syntax. The combination of AI speed and human verification produces the best results.
+            </p>
+
+            <h2>My Workflow</h2>
+            <p>
+                A typical task looks like this:
+            </p>
+            <ol>
+                <li>Describe what I want to build to AI</li>
+                <li>Review and understand the generated code</li>
+                <li>Verify against AWS documentation</li>
+                <li>Test locally before deploying</li>
+                <li>Ask AI to review the final implementation</li>
+            </ol>
+
+            <p>
+                This workflow has easily doubled my productivity for infrastructure work while helping me learn faster than documentation alone.
+            </p>
+
+            <div class="post-tags">
+                <span class="tag">AI</span>
+                <span class="tag">Productivity</span>
+                <span class="tag">Terraform</span>
+                <span class="tag">AWS</span>
+                <span class="tag">Development</span>
+            </div>
+        </article>
+
+        <!-- Post Navigation -->
+        <nav class="post-navigation">
+            <a href="cicd-github-actions-terraform.html" class="nav-btn prev">
+                <i class="fas fa-arrow-left"></i> Previous Post
+            </a>
+            <a href="../blog.html" class="nav-btn">
+                <i class="fas fa-th-large"></i> All Posts
+            </a>
+            <a href="developer-productivity-setup.html" class="nav-btn next">
+                Next Post <i class="fas fa-arrow-right"></i>
+            </a>
+        </nav>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

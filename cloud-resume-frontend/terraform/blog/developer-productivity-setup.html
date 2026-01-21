@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Developer Productivity Setup for 2026 - Cody Chinothai</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">Cody Chinothai</div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="../about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="../index.html" class="nav-link">Resume</a></li>
+                <li class="nav-item"><a href="../projects.html" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="../blog.html" class="nav-link active">Blog</a></li>
+                <li class="nav-item"><a href="https://linkedin.com/in/cody-chinothai" class="nav-link">Contact</a></li>
+                <li class="nav-item">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container post-container">
+        <!-- Back to Blog Link -->
+        <a href="../blog.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+
+        <!-- Post Header -->
+        <header class="post-header">
+            <span class="card-topic">Productivity</span>
+            <h1 class="post-title">My Developer Productivity Setup for 2026</h1>
+            <div class="post-meta">
+                <span class="post-author"><i class="fas fa-user"></i> Cody Chinothai</span>
+                <span class="post-date"><i class="fas fa-calendar"></i> January 1, 2026</span>
+                <span class="post-read-time"><i class="fas fa-clock"></i> 6 min read</span>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article class="post-content">
+            <p class="post-intro">
+                After years of refining my development environment, I've landed on a setup that maximizes productivity while minimizing friction. Here's a look at the tools, configurations, and habits that power my daily workflow as a cloud engineer.
+            </p>
+
+            <h2>Terminal Setup</h2>
+            <p>
+                The terminal is where I spend most of my time, so optimizing it pays huge dividends:
+            </p>
+            <ul>
+                <li><strong>iTerm2:</strong> Split panes, search, and instant replay are invaluable</li>
+                <li><strong>Oh My Zsh:</strong> Plugin ecosystem that adds autocompletions and aliases</li>
+                <li><strong>Starship prompt:</strong> Shows git branch, AWS profile, and Terraform workspace at a glance</li>
+                <li><strong>fzf:</strong> Fuzzy finder for command history and file navigation</li>
+            </ul>
+
+            <h2>Editor Configuration</h2>
+            <p>
+                VS Code remains my primary editor with these essential extensions:
+            </p>
+            <ul>
+                <li><strong>HashiCorp Terraform:</strong> Syntax highlighting, formatting, and validation</li>
+                <li><strong>AWS Toolkit:</strong> Direct Lambda invocation and CloudWatch log viewing</li>
+                <li><strong>GitLens:</strong> Inline blame and commit history exploration</li>
+                <li><strong>Error Lens:</strong> Inline error highlighting without hovering</li>
+                <li><strong>Thunder Client:</strong> API testing without leaving the editor</li>
+            </ul>
+
+            <h2>AWS CLI Aliases</h2>
+            <p>
+                Custom aliases speed up common operations:
+            </p>
+
+            <div class="code-block">
+                <pre><code># ~/.aws/cli/alias
+[toplevel]
+whoami = sts get-caller-identity
+logs = logs tail --follow
+cf-invalidate = cloudfront create-invalidation --distribution-id</code></pre>
+            </div>
+
+            <h2>Git Workflow</h2>
+            <p>
+                Consistent git practices keep projects organized:
+            </p>
+            <ul>
+                <li>Conventional commits (feat:, fix:, docs:) for clear history</li>
+                <li>Branch naming: <code>feature/add-blog-page</code>, <code>fix/cors-headers</code></li>
+                <li>Pre-commit hooks for linting and formatting</li>
+                <li>Git aliases for common operations (<code>git co</code>, <code>git br</code>, <code>git st</code>)</li>
+            </ul>
+
+            <h2>Task Management</h2>
+            <p>
+                I use Notion for project tracking with a simple Kanban board:
+            </p>
+            <ul>
+                <li><strong>Backlog:</strong> Ideas and future tasks</li>
+                <li><strong>This Week:</strong> Committed work for the current sprint</li>
+                <li><strong>In Progress:</strong> Maximum 2 items at a time</li>
+                <li><strong>Done:</strong> Completed work (archived weekly)</li>
+            </ul>
+
+            <h2>Focus Techniques</h2>
+            <p>
+                Tools alone don't create productivity—habits do:
+            </p>
+            <ul>
+                <li><strong>Time blocking:</strong> Deep work in morning, meetings in afternoon</li>
+                <li><strong>Pomodoro technique:</strong> 25-minute focused sessions with breaks</li>
+                <li><strong>Daily planning:</strong> 5 minutes each morning to identify top 3 priorities</li>
+                <li><strong>Weekly review:</strong> Reflect on what worked and what didn't</li>
+            </ul>
+
+            <h2>Documentation Habits</h2>
+            <p>
+                I maintain a personal knowledge base with:
+            </p>
+            <ul>
+                <li>Runbooks for common procedures (deployment, debugging)</li>
+                <li>Decision logs explaining why specific approaches were chosen</li>
+                <li>Quick reference cards for AWS CLI commands and Terraform patterns</li>
+                <li>Troubleshooting guides based on past issues</li>
+            </ul>
+
+            <h2>The Philosophy</h2>
+            <p>
+                The best productivity system is the one you actually use. I've tried complex setups with dozens of tools, but simplicity wins. Every tool in my stack earns its place by providing daily value, not theoretical benefits.
+            </p>
+
+            <p>
+                Start with defaults, add tools only when you feel pain, and regularly prune what you don't use. Your future self will thank you.
+            </p>
+
+            <div class="post-tags">
+                <span class="tag">Productivity</span>
+                <span class="tag">Tools</span>
+                <span class="tag">Workflow</span>
+                <span class="tag">VS Code</span>
+                <span class="tag">Terminal</span>
+            </div>
+        </article>
+
+        <!-- Post Navigation -->
+        <nav class="post-navigation">
+            <a href="ai-cloud-development.html" class="nav-btn prev">
+                <i class="fas fa-arrow-left"></i> Previous Post
+            </a>
+            <a href="../blog.html" class="nav-btn">
+                <i class="fas fa-th-large"></i> All Posts
+            </a>
+        </nav>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

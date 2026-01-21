@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building a Serverless Visitor Counter with AWS - Cody Chinothai</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">Cody Chinothai</div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="../about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="../index.html" class="nav-link">Resume</a></li>
+                <li class="nav-item"><a href="../projects.html" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="../blog.html" class="nav-link active">Blog</a></li>
+                <li class="nav-item"><a href="https://linkedin.com/in/cody-chinothai" class="nav-link">Contact</a></li>
+                <li class="nav-item">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container post-container">
+        <!-- Back to Blog Link -->
+        <a href="../blog.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+
+        <!-- Post Header -->
+        <header class="post-header">
+            <span class="card-topic">AWS</span>
+            <h1 class="post-title">Building a Serverless Visitor Counter with AWS</h1>
+            <div class="post-meta">
+                <span class="post-author"><i class="fas fa-user"></i> Cody Chinothai</span>
+                <span class="post-date"><i class="fas fa-calendar"></i> January 15, 2026</span>
+                <span class="post-read-time"><i class="fas fa-clock"></i> 5 min read</span>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article class="post-content">
+            <p class="post-intro">
+                As part of the Cloud Resume Challenge, I needed to implement a visitor counter that would track and display the number of visitors to my resume website. Here's how I built it using AWS serverless services.
+            </p>
+
+            <h2>The Architecture</h2>
+            <p>
+                The visitor counter consists of three main AWS services working together: API Gateway receives HTTP requests from the frontend, Lambda processes the business logic, and DynamoDB stores the counter value persistently.
+            </p>
+
+            <h2>Why Serverless?</h2>
+            <p>
+                I chose a serverless architecture for several reasons:
+            </p>
+            <ul>
+                <li><strong>Cost efficiency:</strong> Pay only for what you use—perfect for a low-traffic portfolio site</li>
+                <li><strong>Zero server management:</strong> No patching, scaling, or maintenance required</li>
+                <li><strong>Automatic scaling:</strong> Handles traffic spikes without configuration</li>
+                <li><strong>High availability:</strong> Built-in redundancy across availability zones</li>
+            </ul>
+
+            <h2>The Lambda Function</h2>
+            <p>
+                The core logic lives in a Python Lambda function. The key challenge was implementing an atomic counter increment to avoid race conditions when multiple visitors hit the site simultaneously.
+            </p>
+
+            <div class="code-block">
+                <pre><code>response = dynamodb.update_item(
+    TableName=table_name,
+    Key={'visitor_count': {'S': 'main'}},
+    UpdateExpression='ADD #count :inc',
+    ExpressionAttributeNames={'#count': 'count'},
+    ExpressionAttributeValues={':inc': {'N': '1'}},
+    ReturnValues='ALL_NEW'
+)</code></pre>
+            </div>
+
+            <p>
+                Using DynamoDB's <code>ADD</code> operation ensures atomicity—the increment happens in a single operation at the database level, eliminating race conditions.
+            </p>
+
+            <h2>Handling CORS</h2>
+            <p>
+                One of the trickier aspects was configuring CORS correctly. The frontend runs on a different domain than the API, so proper headers are essential:
+            </p>
+
+            <div class="code-block">
+                <pre><code>'headers': {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'GET,OPTIONS'
+}</code></pre>
+            </div>
+
+            <h2>Lessons Learned</h2>
+            <p>
+                Building this seemingly simple feature taught me several valuable lessons:
+            </p>
+            <ul>
+                <li>DynamoDB has reserved words (like "count") that require ExpressionAttributeNames</li>
+                <li>The boto3 client API requires explicit type descriptors for all values</li>
+                <li>API Gateway OPTIONS method is crucial for CORS preflight requests</li>
+                <li>Always test your Lambda functions locally before deploying</li>
+            </ul>
+
+            <h2>What's Next</h2>
+            <p>
+                In my next post, I'll cover how I automated the deployment of this infrastructure using Terraform and GitHub Actions for continuous delivery.
+            </p>
+
+            <div class="post-tags">
+                <span class="tag">AWS</span>
+                <span class="tag">Lambda</span>
+                <span class="tag">DynamoDB</span>
+                <span class="tag">Serverless</span>
+                <span class="tag">API Gateway</span>
+            </div>
+        </article>
+
+        <!-- Post Navigation -->
+        <nav class="post-navigation">
+            <a href="../blog.html" class="nav-btn">
+                <i class="fas fa-th-large"></i> All Posts
+            </a>
+            <a href="cicd-github-actions-terraform.html" class="nav-btn next">
+                Next Post <i class="fas fa-arrow-right"></i>
+            </a>
+        </nav>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

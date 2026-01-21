@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI/CD Pipeline Automation with GitHub Actions and Terraform Cloud - Cody Chinothai</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">Cody Chinothai</div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="../about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="../index.html" class="nav-link">Resume</a></li>
+                <li class="nav-item"><a href="../projects.html" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="../blog.html" class="nav-link active">Blog</a></li>
+                <li class="nav-item"><a href="https://linkedin.com/in/cody-chinothai" class="nav-link">Contact</a></li>
+                <li class="nav-item">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container post-container">
+        <!-- Back to Blog Link -->
+        <a href="../blog.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+
+        <!-- Post Header -->
+        <header class="post-header">
+            <span class="card-topic">DevOps</span>
+            <h1 class="post-title">CI/CD Pipeline Automation with GitHub Actions and Terraform Cloud</h1>
+            <div class="post-meta">
+                <span class="post-author"><i class="fas fa-user"></i> Cody Chinothai</span>
+                <span class="post-date"><i class="fas fa-calendar"></i> January 10, 2026</span>
+                <span class="post-read-time"><i class="fas fa-clock"></i> 7 min read</span>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article class="post-content">
+            <p class="post-intro">
+                Automating infrastructure deployments is crucial for maintaining consistency and enabling rapid iteration. In this post, I'll walk through how I set up CI/CD pipelines using GitHub Actions integrated with Terraform Cloud for my cloud resume project.
+            </p>
+
+            <h2>The Goal</h2>
+            <p>
+                I wanted to achieve a workflow where pushing code to the main branch would automatically trigger tests, run Terraform plans, and apply infrastructure changes—all without manual intervention.
+            </p>
+
+            <h2>Why GitHub Actions + Terraform Cloud?</h2>
+            <p>
+                This combination offers several advantages:
+            </p>
+            <ul>
+                <li><strong>Remote state management:</strong> Terraform Cloud handles state locking and storage securely</li>
+                <li><strong>Team collaboration:</strong> Multiple developers can work without state conflicts</li>
+                <li><strong>Audit trail:</strong> Every plan and apply is logged with full history</li>
+                <li><strong>Native integration:</strong> HashiCorp provides official GitHub Actions</li>
+            </ul>
+
+            <h2>Workflow Structure</h2>
+            <p>
+                The pipeline consists of three main jobs:
+            </p>
+
+            <h3>1. Test Job</h3>
+            <p>
+                For the backend, Python tests run first using pytest with moto to mock AWS services:
+            </p>
+
+            <div class="code-block">
+                <pre><code>- name: Run pytest
+  run: |
+    cd cloud-resume-backend
+    pytest tests/test_handler.py -v
+  env:
+    TABLE_NAME: 'test-table'</code></pre>
+            </div>
+
+            <h3>2. Terraform Plan</h3>
+            <p>
+                On pull requests, the workflow uploads the configuration to Terraform Cloud and creates a speculative plan:
+            </p>
+
+            <div class="code-block">
+                <pre><code>- name: Upload Configuration
+  uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.0
+  with:
+    workspace: ${{ env.TF_WORKSPACE }}
+    directory: ${{ env.CONFIG_DIRECTORY }}
+    speculative: true</code></pre>
+            </div>
+
+            <h3>3. Terraform Apply</h3>
+            <p>
+                When code merges to main, the apply job runs automatically, deploying the infrastructure changes:
+            </p>
+
+            <div class="code-block">
+                <pre><code>- name: Apply
+  uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.3.0
+  with:
+    run: ${{ steps.apply-run.outputs.run_id }}</code></pre>
+            </div>
+
+            <h2>Handling Secrets</h2>
+            <p>
+                The Terraform Cloud API token is stored as a GitHub repository secret and accessed via <code>${{ secrets.TF_API_TOKEN }}</code>. AWS credentials are configured directly in Terraform Cloud workspace variables.
+            </p>
+
+            <h2>PR Comments</h2>
+            <p>
+                One nice feature is automatic PR comments showing the Terraform plan output. This gives reviewers visibility into infrastructure changes before approving:
+            </p>
+
+            <div class="code-block">
+                <pre><code>Plan: 2 to add, 1 to change, 0 to destroy.
+[View Plan in Terraform Cloud](link)</code></pre>
+            </div>
+
+            <h2>Lessons Learned</h2>
+            <ul>
+                <li>Always use <code>speculative: true</code> for PR plans to prevent accidental applies</li>
+                <li>Separate frontend and backend workspaces for independent deployments</li>
+                <li>Path filters in workflows prevent unnecessary runs</li>
+                <li>Terraform Cloud's remote execution provides consistent environments</li>
+            </ul>
+
+            <h2>Results</h2>
+            <p>
+                With this setup, deploying changes takes under 3 minutes from push to production. The automation has eliminated manual errors and gives me confidence that every deployment is tested and reproducible.
+            </p>
+
+            <div class="post-tags">
+                <span class="tag">DevOps</span>
+                <span class="tag">GitHub Actions</span>
+                <span class="tag">Terraform</span>
+                <span class="tag">CI/CD</span>
+                <span class="tag">Automation</span>
+            </div>
+        </article>
+
+        <!-- Post Navigation -->
+        <nav class="post-navigation">
+            <a href="serverless-visitor-counter.html" class="nav-btn prev">
+                <i class="fas fa-arrow-left"></i> Previous Post
+            </a>
+            <a href="../blog.html" class="nav-btn">
+                <i class="fas fa-th-large"></i> All Posts
+            </a>
+            <a href="ai-cloud-development.html" class="nav-btn next">
+                Next Post <i class="fas fa-arrow-right"></i>
+            </a>
+        </nav>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

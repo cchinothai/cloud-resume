@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Wave Background Animation -->
+    <div class="wave-background">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
+    </div>
+    
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">Cody Chinothai</div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="index.html" class="nav-link">Resume</a></li>
+                <li class="nav-item"><a href="projects.html" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="blog.html" class="nav-link active">Blog</a></li>
+                <li class="nav-item"><a href="https://linkedin.com/in/cody-chinothai" class="nav-link">Contact</a></li>
+                <li class="nav-item">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container blog-container">
+        <header>
+            <h1>Blog</h1>
+            <p class="blog-subtitle">Thoughts on cloud architecture, DevOps practices, AI, and productivity.</p>
+        </header>
+
+        <!-- Blog Grid -->
+        <section class="section">
+            <div class="blog-grid">
+                
+                <!-- Blog Card 1 -->
+                <article class="blog-card">
+                    <div class="card-header">
+                        <span class="card-topic">AWS</span>
+                        <span class="card-read-time">5 min read</span>
+                    </div>
+                    <h3 class="card-title">Building a Serverless Visitor Counter with AWS</h3>
+                    <p class="card-excerpt">Learn how I built an atomic counter using Lambda, DynamoDB, and API Gateway with proper CORS handling for my cloud resume challenge.</p>
+                    <div class="card-footer">
+                        <div class="card-meta">
+                            <span class="card-author">Cody Chinothai</span>
+                            <span class="card-date">Jan 15, 2026</span>
+                        </div>
+                        <a href="blog/serverless-visitor-counter.html" class="card-link">Read more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Blog Card 2 -->
+                <article class="blog-card">
+                    <div class="card-header">
+                        <span class="card-topic">DevOps</span>
+                        <span class="card-read-time">7 min read</span>
+                    </div>
+                    <h3 class="card-title">CI/CD Pipeline Automation with GitHub Actions and Terraform Cloud</h3>
+                    <p class="card-excerpt">A deep dive into automating infrastructure deployments using GitHub Actions workflows integrated with Terraform Cloud workspaces.</p>
+                    <div class="card-footer">
+                        <div class="card-meta">
+                            <span class="card-author">Cody Chinothai</span>
+                            <span class="card-date">Jan 10, 2026</span>
+                        </div>
+                        <a href="blog/cicd-github-actions-terraform.html" class="card-link">Read more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Blog Card 3 -->
+                <article class="blog-card">
+                    <div class="card-header">
+                        <span class="card-topic">AI</span>
+                        <span class="card-read-time">4 min read</span>
+                    </div>
+                    <h3 class="card-title">How I Use AI to Accelerate Cloud Development</h3>
+                    <p class="card-excerpt">Practical tips on leveraging AI assistants for writing Terraform configurations, debugging Lambda functions, and improving code quality.</p>
+                    <div class="card-footer">
+                        <div class="card-meta">
+                            <span class="card-author">Cody Chinothai</span>
+                            <span class="card-date">Jan 5, 2026</span>
+                        </div>
+                        <a href="blog/ai-cloud-development.html" class="card-link">Read more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Blog Card 4 -->
+                <article class="blog-card">
+                    <div class="card-header">
+                        <span class="card-topic">Productivity</span>
+                        <span class="card-read-time">6 min read</span>
+                    </div>
+                    <h3 class="card-title">My Developer Productivity Setup for 2026</h3>
+                    <p class="card-excerpt">The tools, workflows, and habits that help me stay productive as a cloud engineer—from terminal configurations to task management systems.</p>
+                    <div class="card-footer">
+                        <div class="card-meta">
+                            <span class="card-author">Cody Chinothai</span>
+                            <span class="card-date">Jan 1, 2026</span>
+                        </div>
+                        <a href="blog/developer-productivity-setup.html" class="card-link">Read more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
