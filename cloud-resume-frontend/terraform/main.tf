@@ -159,6 +159,14 @@ resource "aws_s3_object" "projects_html" {
   content_type = "text/html"
 }
 
+resource "aws_s3_object" "blog_html" {
+  bucket       = aws_s3_bucket.resume_bucket.id
+  key          = "blog.html"
+  source       = "blog.html"
+  etag         = filemd5("blog.html")
+  content_type = "text/html"
+}
+
 # Upload all blog posts dynamically
 resource "aws_s3_object" "blog_posts" {
   for_each = fileset("${path.module}/blog", "*.html")
